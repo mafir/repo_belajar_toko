@@ -17,7 +17,7 @@ class CreatePetugasTable extends Migration
             $table->bigIncrements('id_petugas');
             $table->string('nama_petugas');
             $table->text('alamat');
-            $table->string('email_petugas');
+            $table->stringx('email_petugas');
             $table->enum('gender',['L','P']);
         });
     }

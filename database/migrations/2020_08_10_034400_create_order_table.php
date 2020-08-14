@@ -18,7 +18,7 @@ class CreateOrderTable extends Migration
             $table->string('kode_barang');
             $table->string('tgl_pesan');
             $table->string('jumlah_pesanan');
-            $table->integer('id_cutomers');
+            $table->string('id_customers');
             
         });
     }

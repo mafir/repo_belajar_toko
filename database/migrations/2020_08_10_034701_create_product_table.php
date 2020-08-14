@@ -17,10 +17,9 @@ class CreateProductTable extends Migration
             $table->bigIncrements('id_barang');
             $table->string('nama_barang');
             $table->string('jenis_barang');
-            $table->integer('jumlah_barang');
-            $table->integer('harga_barang');
-            $table->string('gambar');
-            $table->integer('id_petugas');
+            $table->string('jumlah_barang');
+            $table->string('harga_barang');
+            $table->string('id_petugas');
         });
     }
 

@@ -16,8 +16,7 @@ class CreateStokTable extends Migration
         Schema::create('stok', function (Blueprint $table) {
             $table->bigIncrements('id_barang');
             $table->string('nama_barang');
-            $table->integer('tgl_stok');
-            $table->string('gambar');
+            $table->string('tgl_stok');
         });
     }
 
