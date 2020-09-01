@@ -37,7 +37,6 @@ class productController extends Controller
             'harga_barang' => $request->harga_barang,
             'id_petugas' => $request->id_petugas
         ]);
-
         if($simpan) {
             return Response()->json(['status'=>1]);
         }

@@ -39,7 +39,6 @@ class customersController extends Controller
             'kode_pos' => $request->kode_pos,
             'nomor_hp' => $request->nomor_hp
         ]);
-
         if($simpan) {
             return Response()->json(['status'=>1]);
         }

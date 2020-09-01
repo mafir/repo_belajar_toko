@@ -11,7 +11,7 @@ class orderController extends Controller
     public function show()
     {
         $data_order = order::join('customers', 'order.id_customers', 'customers.id_customers')
-                            ->join('product', 'order.id_transaksi', 'product.id_barang')
+                            ->join('product', 'order.kode_barang', 'product.id_barang')
                             ->select('order.id_transaksi',
                                      'order.jumlah_pesanan',
                                      'order.tgl_pesan',
@@ -23,7 +23,7 @@ class orderController extends Controller
     }
     public function detail($id)
     {
-        if(order::where('id', $id)->exists()){
+        if(order::where('id_transaksi', $id)->exists()){
             $data_order = order::join('customers', 'customer.id_customers', 'order.id_customers')
                                     ->where('order.id', '=', $id)
                                     ->get();
@@ -33,7 +33,8 @@ class orderController extends Controller
             return Response()->json(['message' => 'Tidak Ditemukan']);
         }
     }
-    public function store(Request $request)
+    public function store(Request $request){}
+    public function update($id, Request $request)
     {
         $validator=Validator::make($request->all(),
             [
@@ -46,18 +47,17 @@ class orderController extends Controller
         if($validator->fails()){
             return Response()->json($validator->errors());
         }
-        $simpan = order::create([
+        $ubah = order::where('id_transaksi', $id)->update([
             'kode_barang' => $request->kode_barang,
             'tgl_pesan' => $request->tgl_pesan,
             'jumlah_pesanan' => $request->jumlah_pesanan,
             'id_customers' => $request->id_customers
         ]);
-
-        if($simpan) {
+        if($ubah) {
             return Response()->json(['status'=>1]);
         }
         else{
             return Response()->json(['status'=>0]);
         }
     }
-}
+}   
