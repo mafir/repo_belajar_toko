@@ -17,23 +17,32 @@ Route::post('/login', 'UserController@login');
 
 Route::group(['middleware' => ['jwt.verify']], function ()
 {
-Route::post('/customers','customersController@store');
-Route:: get('/customers/{id}', 'customersController@detail');
-Route:: get('/customers', 'customersController@show');
-Route::delete('/customers/{id}', 'customersController@destroy');
+    Route::group(['middleware' => ['api.superadmin']], function() {
+        Route::delete('/customers/{id}', 'customersController@destroy');
+        Route::delete('/order/{id}', 'orderController@destroy');
+        Route::delete('/product/{id}', 'productController@destroy');
+    });
+    Route::group(['middleware' => ['api.admin']], function() {
+        Route::post('/customers','customersController@store');
+        Route::put('/customers/{id}', 'customersController@update');
 
-Route::post('/order','orderController@store');
-Route::get('/order', 'orderController@show');
-Route::put('/order/{id}', 'orderController@update');
-Route::get('/order/{id}', 'orderController@detail');
-Route::delete('/order/{id}', 'orderController@destroy');
+        Route::post('/order','orderController@store');
+        Route::put('/order/{id}', 'orderController@update');
 
-Route:: get('/product', 'productController@show');
-Route:: post('/product', 'productController@store');
-Route:: get('/product/{id}', 'productController@detail');
-Route::delete('/product/{id}', 'productController@destroy');
+        Route:: post('/product', 'productController@store');
+        Route::put('/product/{id}', 'productController@update');
+    });
+    
+    Route:: get('/customers/{id}', 'customersController@detail');
+    Route:: get('/customers', 'customersController@show');
+    
+    Route::get('/order', 'orderController@show');
+    Route::get('/order/{id}', 'orderController@detail');
+    
+    Route:: get('/product', 'productController@show');  
+    Route:: get('/product/{id}', 'productController@detail');
+    
+    Route::post('/stok','stokController@store');
 
-Route::post('/stok','stokController@store');
-
-Route::post('/petugas','petugasController@store');
+    Route::post('/petugas','petugasController@store');
 });
